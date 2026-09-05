@@ -157,6 +157,14 @@ def merge_postprocess_payload(
         output_tps = _extract_output_tps(result)
         if output_tps is not None:
             indicator["output_tps"] = output_tps
+    elif case_type == "spec_decode":
+        if isinstance(result, list):
+            indicator.update(
+                {
+                    f"acceptance_rate_pos_{position}": round(float(rate), 4)
+                    for position, rate in enumerate(result)
+                }
+            )
     testcase_info["testIndicator"] = indicator
 
     return payload
