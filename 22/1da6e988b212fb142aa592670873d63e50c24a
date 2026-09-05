@@ -1,0 +1,41 @@
+tests/e2e/pull_request/utils.py
+  s_4f149fd333b58a::t_a08ab7e2473286 248-249,254,261-266,271
+tests/e2e/pull_request/one_card/spec_decode/test_dflash.py
+  s_4f149fd333b58a::t_bdbf9f638a549f 10,20-22,24-25,28,69-71,73-92
+  s_4f149fd333b58a::t_8c4a667e252704 56
+  s_4f149fd333b58a::t_7982df95fdcf26 12-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.2",
+  "base_commit_sha": "221da6e988b212fb142aa592670873d63e50c24a",
+  "prompts": {},
+  "humans": {
+    "h_e99ba747b6861f": {
+      "author": "lyu01 <lyuran018@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4f149fd333b58a": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a9bb5a27de4402aeb2accfc",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "tool_type": "agent",
+        "source_scene": "unknown",
+        "external_session_id": "6a9bb5a27de4402aeb2accfc",
+        "tool_use_id": "6a9bd1107de4402aeb2acdb9",
+        "session_id": "6a9bb5a27de4402aeb2accfc",
+        "operation_id": "6a9bd1107de4402aeb2acdb9",
+        "tool_id": "Edit",
+        "dedupe_key": "6a9bb5a27de4402aeb2accfc:6a9bd1107de4402aeb2acdb9:afterEdit:73c59d9a",
+        "edit_kind": "file_edit",
+        "client_type": "ide",
+        "runtime_client": "trae-tob-git-ai"
+      }
+    }
+  }
+}
