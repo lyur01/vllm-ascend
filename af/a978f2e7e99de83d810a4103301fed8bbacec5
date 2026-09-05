@@ -1,0 +1,38 @@
+tests/e2e/nightly/single_node/models/configs/Kimi-K2.6-w4a8-DFlash-A3.yaml
+  h_e99ba747b6861f 66
+  s_161673f3396b92::t_e51566ad238801 57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.2",
+  "base_commit_sha": "afa978f2e7e99de83d810a4103301fed8bbacec5",
+  "prompts": {},
+  "humans": {
+    "h_e99ba747b6861f": {
+      "author": "lyu01 <lyuran018@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_161673f3396b92": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a98df8c7de4402aeb2aca9a",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "tool_id": "Edit",
+        "source_scene": "unknown",
+        "external_session_id": "6a98df8c7de4402aeb2aca9a",
+        "client_type": "ide",
+        "operation_id": "6a9ac31c7de4402aeb2accf8",
+        "tool_type": "agent",
+        "session_id": "6a98df8c7de4402aeb2aca9a",
+        "dedupe_key": "6a98df8c7de4402aeb2aca9a:6a9ac31c7de4402aeb2accf8:afterEdit:6963476b",
+        "runtime_client": "trae-tob-git-ai",
+        "edit_kind": "file_edit",
+        "tool_use_id": "6a9ac31c7de4402aeb2accf8"
+      }
+    }
+  }
+}
