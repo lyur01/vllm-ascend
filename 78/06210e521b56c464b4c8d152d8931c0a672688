@@ -1,0 +1,67 @@
+tests/e2e/pull_request/one_card/spec_decode/test_dflash.py
+  h_e99ba747b6861f 11-12
+.github/workflows/configs/nightly_config.yaml
+  s_161673f3396b92::t_69b1a4a9f7e72e 235-237
+tests/e2e/nightly/single_node/models/configs/Kimi-K2.6-w4a8-DFlash-A3.yaml
+  s_161673f3396b92::t_38a4da543e5050 1-8,14-37,39,41,43-45,47-56,58-63,65,67
+  s_161673f3396b92::t_650b0ca777c2b2 9-13
+  h_e99ba747b6861f 38,40,42,46,64,66
+  s_161673f3396b92::t_e51566ad238801 57
+tests/e2e/pull_request/utils.py
+  s_02531a5504a7cb::t_1625c5157aecfc 249,252,268
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.2",
+  "base_commit_sha": "7806210e521b56c464b4c8d152d8931c0a672688",
+  "prompts": {},
+  "humans": {
+    "h_e99ba747b6861f": {
+      "author": "lyu01 <lyuran018@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_02531a5504a7cb": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a9be1977de4402aeb2ace10",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "client_type": "ide",
+        "session_id": "6a9be1977de4402aeb2ace10",
+        "edit_kind": "file_edit",
+        "source_scene": "unknown",
+        "runtime_client": "trae-tob-git-ai",
+        "tool_id": "Edit",
+        "operation_id": "6a9be8547de4402aeb2acef2",
+        "external_session_id": "6a9be1977de4402aeb2ace10",
+        "dedupe_key": "6a9be1977de4402aeb2ace10:6a9be8547de4402aeb2acef2:afterEdit:73c59d9a",
+        "tool_type": "agent",
+        "tool_use_id": "6a9be8547de4402aeb2acef2"
+      }
+    },
+    "s_161673f3396b92": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a98df8c7de4402aeb2aca9a",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "client_type": "ide",
+        "tool_id": "Edit",
+        "operation_id": "6a98e2177de4402aeb2acb1e",
+        "edit_kind": "file_edit",
+        "dedupe_key": "6a98df8c7de4402aeb2aca9a:6a98e2177de4402aeb2acb1e:afterEdit:df48551a",
+        "external_session_id": "6a98df8c7de4402aeb2aca9a",
+        "source_scene": "unknown",
+        "session_id": "6a98df8c7de4402aeb2aca9a",
+        "tool_type": "agent",
+        "runtime_client": "trae-tob-git-ai",
+        "tool_use_id": "6a98e2177de4402aeb2acb1e"
+      }
+    }
+  }
+}
