@@ -1,0 +1,84 @@
+tests/e2e/nightly/single_node/models/configs/Kimi-K2.6-w4a8-DFlash-A3.yaml
+  s_88caa926e27a81::t_c343b31203f456 1-67
+tests/e2e/pull_request/utils.py
+  s_02531a5504a7cb::t_1625c5157aecfc 249,252,268
+.github/workflows/configs/nightly_config.yaml
+  s_161673f3396b92::t_69b1a4a9f7e72e 235-237
+tests/e2e/pull_request/one_card/spec_decode/test_dflash.py
+  s_88caa926e27a81::t_16adc02e16fb7b 6-7,10-12,37,42-45,47,49,51,53-54,56-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.2",
+  "base_commit_sha": "3e02a6b8d32d3ca8cadee9402a19019c8f4b0554",
+  "prompts": {},
+  "humans": {
+    "h_e99ba747b6861f": {
+      "author": "lyu01 <lyuran018@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_02531a5504a7cb": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a9be1977de4402aeb2ace10",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "session_id": "6a9be1977de4402aeb2ace10",
+        "tool_id": "Edit",
+        "tool_use_id": "6a9be8547de4402aeb2acef2",
+        "source_scene": "unknown",
+        "runtime_client": "trae-tob-git-ai",
+        "tool_type": "agent",
+        "client_type": "ide",
+        "external_session_id": "6a9be1977de4402aeb2ace10",
+        "dedupe_key": "6a9be1977de4402aeb2ace10:6a9be8547de4402aeb2acef2:afterEdit:73c59d9a",
+        "operation_id": "6a9be8547de4402aeb2acef2",
+        "edit_kind": "file_edit"
+      }
+    },
+    "s_161673f3396b92": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a98df8c7de4402aeb2aca9a",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "client_type": "ide",
+        "edit_kind": "file_edit",
+        "tool_id": "Edit",
+        "session_id": "6a98df8c7de4402aeb2aca9a",
+        "tool_use_id": "6a98e2177de4402aeb2acb1e",
+        "dedupe_key": "6a98df8c7de4402aeb2aca9a:6a98e2177de4402aeb2acb1e:afterEdit:df48551a",
+        "source_scene": "unknown",
+        "external_session_id": "6a98df8c7de4402aeb2aca9a",
+        "runtime_client": "trae-tob-git-ai",
+        "tool_type": "agent",
+        "operation_id": "6a98e2177de4402aeb2acb1e"
+      }
+    },
+    "s_88caa926e27a81": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a9e26d47de4402aeb2acf1d",
+        "model": "DeepSeek-V4-Pro-Official__dev"
+      },
+      "human_author": "lyu01 <lyuran018@gmail.com>",
+      "custom_attributes": {
+        "tool_name": "RunCommand",
+        "client_type": "ide",
+        "runtime_client": "trae-tob-git-ai",
+        "operation_id": "6aa21c0a7de4402aeb2ad06a",
+        "external_session_id": "6a9e26d47de4402aeb2acf1d",
+        "session_id": "6a9e26d47de4402aeb2acf1d",
+        "source_scene": "agent",
+        "edit_kind": "bash",
+        "tool_use_id": "6aa21c0a7de4402aeb2ad06a",
+        "display_model_name": "DeepSeek-V4-Pro 正式版"
+      }
+    }
+  }
+}
