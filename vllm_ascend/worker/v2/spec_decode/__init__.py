@@ -51,6 +51,10 @@ def init_speculator(
         # MRV2 postprocess has already updated history. The MRV1 NPU kernel
         # appends sampled tokens itself and cannot be used here unchanged.
         return NgramGPUSpeculator(vllm_config, device, req_states)
+    if speculative_config.method == "eagle4":
+        from vllm_ascend.worker.v2.spec_decode.eagle4.speculator import AscendEagle4Speculator
+
+        return AscendEagle4Speculator(vllm_config, device)
     if speculative_config.method == "extract_hidden_states":
         # No Ascend-specific behavior beyond update_stream assignment in
         # NPUModelRunner; reuse upstream ExtractHiddenStatesSpeculator as-is.
