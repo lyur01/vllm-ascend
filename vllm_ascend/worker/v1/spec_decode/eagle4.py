@@ -137,8 +137,24 @@ def validate_eagle4_runtime(vllm_config: Any) -> None:
         or parallel.enable_dbo
     ):
         raise NotImplementedError("Ascend EAGLE-4 currently supports TP only, without PP, DP, CP or DBO.")
-    if vllm_config.lora_config is not None or vllm_config.model_config.is_multimodal_model:
+    if vllm_config.lora_config is not None:
         raise NotImplementedError("Ascend EAGLE-4 currently supports text targets without LoRA.")
+    # Text-only serving of a multimodal checkpoint (e.g. Qwen/Qwen3.8-27B, whose
+    # architecture is Qwen3_5ForConditionalGeneration) keeps
+    # `is_multimodal_model` True even with the vision tower skipped, so accept it
+    # when the target is explicitly running text-only.
+    model_config = vllm_config.model_config
+    mm_config = getattr(model_config, "multimodal_config", None)
+    text_only = (
+        not getattr(model_config, "is_multimodal_model", False)
+        or not getattr(model_config, "supports_multimodal_inputs", True)
+        or (mm_config is not None and getattr(mm_config, "language_model_only", False))
+    )
+    if not text_only:
+        raise NotImplementedError(
+            "Ascend EAGLE-4 currently supports text targets without LoRA; "
+            "pass --language-model-only to serve a multimodal checkpoint."
+        )
     if vllm_config.kv_transfer_config is not None:
         raise NotImplementedError("Ascend EAGLE-4 does not yet support disaggregated KV transfer.")
     if vllm_config.cache_config.cache_dtype not in ("auto", "float16", "bfloat16"):
