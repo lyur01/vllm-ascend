@@ -190,8 +190,13 @@ def unwrap_mamba_kv_cache_groups(kv_cache_config: KVCacheConfig) -> KVCacheConfi
 def _align_hybrid_attention_page_sizes(kv_cache_specs: dict[str, KVCacheSpec]) -> None:
     """Align dense K/V segments before padding a shared Attention/Mamba pool."""
     # MLA and compressed-cache subclasses manage their own storage layouts.
+    # Speculator draft (EAGLE) layers are annotated with ``is_draft`` and get
+    # their own KV cache group, so their geometry must not constrain the target
+    # layers' reference page or K/V ratio.
     attention_specs = {
-        name: spec for name, spec in kv_cache_specs.items() if type(spec) in (FullAttentionSpec, SlidingWindowSpec)
+        name: spec
+        for name, spec in kv_cache_specs.items()
+        if type(spec) in (FullAttentionSpec, SlidingWindowSpec) and not getattr(spec, "is_draft", False)
     }
     if not attention_specs:
         return
@@ -209,7 +214,11 @@ def _align_hybrid_attention_page_sizes(kv_cache_specs: dict[str, KVCacheSpec]) -
             raise ValueError(
                 f"Cannot align hybrid attention K/V pages for {layer_name}: "
                 "the shared contiguous cache requires matching K/V size ratios "
-                "and divisible unpadded page sizes."
+                "and divisible unpadded page sizes. "
+                f"layer page={spec.real_page_size_bytes} B "
+                f"(head_size={spec.head_size}, head_size_v={spec.head_size_v}), "
+                f"reference page={page_size} B "
+                f"(head_size={reference.head_size}, head_size_v={reference.head_size_v})."
             )
         ratio = page_size // spec.real_page_size_bytes
         if ratio > 1:
