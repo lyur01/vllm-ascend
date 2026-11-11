@@ -156,6 +156,11 @@ def _int64_storage(tensor: torch.Tensor) -> torch.Tensor:
     return tensor
 
 
+# Temporary diagnostics for pinned-host allocation growth; drop before PR.
+_PIN_INIT_COUNT = 0
+_PIN_INIT_BYTES = 0
+
+
 class UvaBufferWrapper:
     """
     Ascend NPU doesn't support UVA tensors directly.
@@ -165,10 +170,27 @@ class UvaBufferWrapper:
     """
 
     def __init__(self, size: int | Sequence[int], dtype: torch.dtype):
+        global _PIN_INIT_COUNT, _PIN_INIT_BYTES
         self._cpu: torch.Tensor = torch.zeros(size, dtype=dtype, device="cpu", pin_memory=True)
         self._np: np.ndarray = self._cpu.numpy()
         self._modified_indices: set[int] = set()
         self._dirty_prefix_end = 0
+        # Preallocated pinned staging for sparse-row H2D copies. Pinning a
+        # fresh tensor of request-dependent size on every sparse sync
+        # fragments and exhausts the host pinned pool
+        # (aclrtMallocHostWithCfg 207001) in long-running services. Reuse
+        # rides the same round-robin depth invariant as the prefix copy.
+        self._pinned_scratch: torch.Tensor = torch.empty(
+            self._cpu.shape, dtype=self._cpu.dtype, device="cpu", pin_memory=True
+        )
+        _PIN_INIT_COUNT += 1
+        _PIN_INIT_BYTES += 2 * self._cpu.numel() * self._cpu.element_size()
+        logger.info(
+            "UVA pinned alloc #%d: %d B x2 (cpu+scratch), running total %.2f MB",
+            _PIN_INIT_COUNT,
+            self._cpu.numel() * self._cpu.element_size(),
+            _PIN_INIT_BYTES / 1024**2,
+        )
         requested_real_uva = is_uva_available()
         if requested_real_uva:
             import vllm_ascend.vllm_ascend_C  # type: ignore[import-untyped]  # noqa: F401
@@ -221,11 +243,12 @@ class UvaBufferWrapper:
                     _int64_storage(self._cpu[start_row : start_row + n_dirty]), non_blocking=True
                 )
             else:
-                # Sparse modification pattern — fall back to indexed copy.
-                # Explicitly re-pin the CPU source so that non_blocking is
-                # not silently degraded. uint64 is copied through its int64
-                # storage because NPU rejects DT_UINT64 in the copy kernel.
-                src = self._cpu[dirty_rows].pin_memory()
+                # Sparse modification pattern — fall back to indexed copy
+                # through the preallocated pinned scratch. uint64 is copied
+                # through its int64 storage because NPU rejects DT_UINT64
+                # in the copy kernel.
+                src = self._pinned_scratch[:n_dirty]
+                src.copy_(self._cpu[dirty_rows])
                 if src.dtype == torch.uint64:
                     copied = _int64_storage(src).to(device="npu", non_blocking=True)
                     _int64_storage(self._uva)[dirty_rows] = copied
